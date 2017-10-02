@@ -85,9 +85,8 @@ def submit_annotation(video_number):
         pd_caption = pd_caption + ' ' + pd_position 
     
     #st_caption = request.form['st-caption']
-    st_caption = ''
 
-    save_comment(fs_caption, pd_caption, st_caption, video_number)
+    save_comment(fs_caption, pd_caption, video_number)
     current = all_video_numbers.index(video_number)
     if current < maxnum:
         following = current+1
@@ -224,7 +223,7 @@ def url_for_image(video_number):
 def url_for_view_image(video_number):
     return url_for('annotation_page', video_number=video_number)
 
-def save_comment(fs_caption, pd_caption, st_caption, video_number):
+def save_comment(fs_caption, pd_caption, video_number):
     current = all_video_numbers.index(video_number)
     if video_number in video_dict:
         video_name, video, video_ins, video_frames, comments = video_dict[video_number]
