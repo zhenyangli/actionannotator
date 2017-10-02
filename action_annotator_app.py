@@ -83,8 +83,9 @@ def submit_annotation(video_number):
         pd_caption = pd_color + ' ' + pd_caption 
     if pd_position:
         pd_caption = pd_caption + ' ' + pd_position 
-    #
-    st_caption = request.form['st-caption']
+    
+    #st_caption = request.form['st-caption']
+    st_caption = ''
 
     save_comment(fs_caption, pd_caption, st_caption, video_number)
     current = all_video_numbers.index(video_number)
