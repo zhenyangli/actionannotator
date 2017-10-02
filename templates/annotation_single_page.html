@@ -1,0 +1,65 @@
+<!doctype html>
+
+<title>Image viewer</title>
+<style>
+#images ul {
+  white-space: nowrap;
+  float: left;
+}
+
+#images ul, #images li {
+  list-style: none;
+  display: inline;
+}
+table {
+   width: 100%;
+}
+
+ table td:nth-child(-n+4) div
+{
+ min-width: 100px;
+}
+
+input[type=submit] {
+    width: 5em;  height: 3em;
+}
+</style>
+<body bgcolor="#cccccc" style="font-family: verdana; font-size: 18px">
+<table>
+    <col width="600">
+<col width="600">
+<tr><td><center><b><font style="font-size: 23px;">Video {{video_name}} ({{current +1}}/{{total}})</font></b></center></td><td>
+    <a href="/view/video/FIRST">&lt;&lt;&lt; First</a> |
+    {% if previous %}
+      <a href="{{previous}}">&lt; Previous</a>
+    {% else %}
+    &lt; Previous
+    {% endif %}
+    | <a href="/view/video/RANDOM">Random</a> |
+    {% if following %}
+      <a href="{{following}}">Next &gt;</a>
+      {% else %}
+      Next &gt;
+    {% endif %}
+    | <a href="/view/video/LAST">Last &gt;&gt;&gt;</a>
+</td>
+</tr>
+<tr><td>
+<center>
+    <img src="{{first_frame}}" style="max-width:600px;max-height:400px;border:2px solid white">
+</center>
+</td>
+</tr>
+<td colspan="2" style="background-color:#f2f2f2">
+<!--
+<ul>
+<li>{{comments.0}}</li>
+<li>{{comments.1}}</li>
+<li>{{comments.2}}</li>
+<li>{{comments.3}}</li>
+<li>{{comments.4}}</li>
+</ul>-->
+<textarea readonly rows="20" cols="200" style="border:none;">{{comments}}</textarea>
+</td></tr>
+</table>
+</body>

@@ -1,0 +1,46 @@
+<html>
+<body bgcolor="#cccccc" style="font-family: verdana; font-size: 23px">
+<style>
+.blank_row
+{
+    height: 50px !important; /* Overwrite any previous rules */
+    background-color: #cccccc;
+}
+input[type=submit] {
+    width: 6em;  height: 3em;
+}
+</style>
+
+<h1>Example</h1>
+<p>This page demonstrates how to annotate step by step.</p>
+
+<table cellpadding="5">
+<tr><td>
+<font style="font-family: verdana; font-size: 18px; color: red;">Just describe the bounding box object using ONE sentence so that we can UNIQUELY identify it from the image.</font>
+</td></tr>
+<tr><td><img src='/static/example/demo1.png' style="max-width:1200px;border:2px solid white">
+</td></tr>
+
+<tr class="blank_row">
+    <td colspan="20"></td>
+</tr>
+
+<tr><td>
+<font style="font-family: verdana; font-size: 18px; color: red;">Here are some annotation examples.</font>
+</td></tr>
+<tr><td><img src='/static/example/examples.png' style="max-width:1200px;border:2px solid white">
+</td></tr>
+
+<tr class="blank_row">
+    <td colspan="20"></td>
+</tr>
+
+<tr><td>
+<form id='signin' method='post' action="start_example">
+<input type='submit' value='Start' />
+</form>
+</td></tr>
+</table>
+</body>
+</html>
+
