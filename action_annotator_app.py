@@ -1,10 +1,11 @@
-from flask import g, Flask, url_for, request, render_template, redirect
+from flask import g, Flask, session, url_for, request, render_template, redirect
 from glob import glob, iglob
 import json
 import math, random
 import os
 import xml.etree.ElementTree as ET
 app = Flask(__name__)
+app.secret_key = 'actionannotator'
 
 
 from xml.dom import minidom
@@ -60,8 +61,12 @@ def register_annotator():
 
 @app.route('/start_annotate', methods=['POST'])
 def start_annotate():
-    global annotator
-    annotator = request.form['annotator']
+    #global annotator
+    #annotator = request.form['annotator']
+
+    if request.method == 'POST':
+        session['username'] = request.form['annotator']
+
     video_number = all_video_numbers[0]
     return render_template('example.html')
 
@@ -209,6 +214,8 @@ def save_comment(fs_caption, pd_caption, video_number):
         #with open(comments, 'a') as f:
             #f.write('\n------------------\Video: ' + str(video_number) + '\n')
             #f.write(annotator + '; ' + invarfeat + '; ' + varfeat + '; ' + caption + '\n')
+        if 'username' in session:
+            annotator = session['username']
         if os.path.exists(comments):
             video = ET.parse( comments ).getroot()
             annotation = ET.SubElement(video, 'annotation')
