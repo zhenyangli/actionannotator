@@ -11,6 +11,7 @@
   list-style: none;
   display: inline;
 }
+
 table {
    width: 100%;
 }
@@ -24,29 +25,37 @@ table td:nth-child(-n+4) div
  min-width: 100px;
 }
 
+#go form{
+  display:inline;
+}
+
 input[type=submit] {
     width: 5em;  height: 3em;
 }
 </style>
 <body bgcolor="#cccccc" style="font-family: verdana; font-size: 18px">
 <table>
-    <col width="600">
 <col width="600">
-<tr><td><center><b><font style="font-size: 23px;">Video {{video_name}} ({{current +1}}/{{total}})</font></b></center></td><td>
-    <a href="/video/FIRST">&lt;&lt;&lt; First</a> |
-    {% if previous %}
-      <a href="{{previous}}">&lt; Previous</a>
-    {% else %}
-    &lt; Previous
-    {% endif %}
-    | <a href="/video/RANDOM">Random</a> |
-    {% if following %}
-      <a href="{{following}}">Next &gt;</a>
-      {% else %}
-      Next &gt;
-    {% endif %}
-    | <a href="/video/LAST">Last &gt;&gt;&gt;</a>
-</td>
+<col width="800">
+<tr><td><center><b><font style="font-size: 23px;">Video {{video_name}} ({{current +1}}/{{total}})</font></b></center></td>
+    <td>
+        <form id='go' method='post' action="/video/GO">
+            <a href="/video/FIRST">&lt;&lt;&lt; First</a> |
+            {% if previous %}
+            <a href="{{previous}}">&lt; Previous</a>
+            {% else %}
+            &lt; Previous
+            {% endif %}
+            | <a href="/video/RANDOM">Random</a> |
+            {% if following %}
+            <a href="{{following}}">Next &gt;</a>
+              {% else %}
+              Next &gt;
+            {% endif %}
+            | <a href="/video/LAST">Last &gt;&gt;&gt;</a> |
+            <input type="text" name="gopage" size="8"> <input type='submit' name="submit" value='Go' />
+        </form>
+    </td>
 </tr>
 
 <tr id="trspace">
@@ -79,7 +88,6 @@ input[type=submit] {
 <td>
 <!--Form modifying code for easier annotation.-->
 <left>
-<!--<form id='answerform' method='post' action="{{url_for('annotator_more_page',video_number=video_number)}}" >-->
 <form id='answerform' method='post' action="{{url_for('submit_annotation',video_number=video_number)}}" >
 <table>
 <tr><td>Describe by ONE sentence what the object is doing in the video<td></tr>

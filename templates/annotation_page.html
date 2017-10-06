@@ -26,23 +26,27 @@ input[type=submit] {
 </style>
 <body bgcolor="#cccccc" style="font-family: verdana; font-size: 18px">
 <table>
-    <col width="600">
 <col width="600">
-<tr><td><center><b><font style="font-size: 23px;">Video {{video_name}} ({{current +1}}/{{total}})</font></b></center></td><td>
-    <a href="/view/video/FIRST">&lt;&lt;&lt; First</a> |
-    {% if previous %}
-      <a href="{{previous}}">&lt; Previous</a>
-    {% else %}
-    &lt; Previous
-    {% endif %}
-    | <a href="/view/video/RANDOM">Random</a> |
-    {% if following %}
-      <a href="{{following}}">Next &gt;</a>
-      {% else %}
-      Next &gt;
-    {% endif %}
-    | <a href="/view/video/LAST">Last &gt;&gt;&gt;</a>
-</td>
+<col width="800">
+<tr><td><center><b><font style="font-size: 23px;">Video {{video_name}} ({{current +1}}/{{total}})</font></b></center></td>
+    <td>
+        <form id='go' method='post' action="/view/video/GO">
+            <a href="/view/video/FIRST">&lt;&lt;&lt; First</a> |
+            {% if previous %}
+            <a href="{{previous}}">&lt; Previous</a>
+            {% else %}
+            &lt; Previous
+            {% endif %}
+            | <a href="/view/video/RANDOM">Random</a> |
+            {% if following %}
+            <a href="{{following}}">Next &gt;</a>
+              {% else %}
+              Next &gt;
+            {% endif %}
+            | <a href="/view/video/LAST">Last &gt;&gt;&gt;</a> |
+            <input type="text" name="gopage" size="8"> <input type='submit' name="submit" value='Go' />
+        </form>
+    </td>
 </tr>
 
 <tr id="trspace">

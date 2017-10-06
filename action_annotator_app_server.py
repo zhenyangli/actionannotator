@@ -24,14 +24,14 @@ def comments_parser(comments):
 #setup dataset:
 def make_video_dict():
     d = dict()
-    videos = sorted(glob('static/A2D_annotation/for_annotation/*'))
+    videos = sorted(glob('static/A2D_annotation/for_annotation_new/*'))
     for i, video in enumerate(videos):
         video_number = str(i)
         video_name = video.split('/')[-1]
         video_file = ''.join(['/static/A2D_annotation/videos/', video_name[:-2], '.mp4'])
         video_ins = video_name[-1]
         # pre-load all frames
-        video_frames = sorted(glob(''.join(['static/A2D_annotation/for_annotation/', video_name, '/*.png'])))
+        video_frames = sorted(glob(''.join(['static/A2D_annotation/for_annotation_new/', video_name, '/*.png'])))
         video_frames = ['/'+frame for frame in video_frames]
         text_file = ''.join(['static/A2DEntities/', video_name,'.xml'])
         d[video_number] = (video_name, video_file, video_ins, video_frames, text_file)
@@ -94,10 +94,18 @@ def submit_annotation(video_number):
         following = 0
     return redirect('/video/'+str(following))
 
-@app.route('/view/video/<video_number>',methods=['GET'])
+@app.route('/view/video/<video_number>',methods=['GET','POST'])
 def annotation_page(video_number):
     if request.method == "POST":
-        pass
+        if video_number == 'GO':
+            video_number = int(request.form['gopage'])
+            if video_number > maxnum+1:
+                video_number = maxnum+1
+            elif video_number < 1:
+                video_number = 1
+            video_number = str(video_number - 1)
+        else:
+            pass
     elif request.method == 'GET':
         if video_number == 'RANDOM':
             video_number = random.choice(all_video_numbers)
@@ -136,10 +144,18 @@ def annotation_page(video_number):
                                 following = following)
 
 
-@app.route('/video/<video_number>',methods=['GET'])
+@app.route('/video/<video_number>',methods=['GET','POST'])
 def annotator_page(video_number):
     if request.method == "POST":
-        pass
+        if video_number == 'GO':
+            video_number = int(request.form['gopage'])
+            if video_number > maxnum+1:
+                video_number = maxnum+1
+            elif video_number < 1:
+                video_number = 1
+            video_number = str(video_number - 1)
+        else:
+            pass
     elif request.method == 'GET':
         if video_number == 'RANDOM':
             video_number = random.choice(all_video_numbers)
@@ -171,44 +187,6 @@ def annotator_page(video_number):
                                 video_number = video_number,
                                 video = video,
                                 frames = video_frames,
-                                current = current,
-                                total = total,
-                                comments = comments_data,
-                                previous = previous,
-                                following = following)
-
-
-@app.route('/video/1/<video_number>',methods=['GET','POST'])
-def annotator_more_page(video_number):
-    if request.method == "POST":
-        caption = request.form['caption']
-    elif request.method == 'GET':
-        pass
-    current = all_video_numbers.index(video_number)
-    if current > 0:
-        previous = url_for_image(all_video_numbers[current-1])
-    else:
-        previous = None
-    if current < maxnum:
-        following = url_for_image(all_video_numbers[current+1])
-    else:
-        following = None
-    if video_number in video_dict:
-        video_name, video, video_ins, video_frames, comments = video_dict[video_number]
-        if os.path.isfile(comments):
-            comments_data = comments_parser(comments)
-        else:
-            comments_data = ''
-
-        #num_frames = len(video_frames)
-
-        #
-        return render_template('annotator_more_page.html',
-                                video_name = video_name,
-                                video_number = video_number,
-                                video = video,
-                                frames = video_frames,
-                                caption = caption,
                                 current = current,
                                 total = total,
                                 comments = comments_data,
