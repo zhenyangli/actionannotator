@@ -1,5 +1,4 @@
 <!doctype html>
-
 <title>Image viewer</title>
 <style>
 #images ul {
@@ -11,13 +10,22 @@
   list-style: none;
   display: inline;
 }
+
 table {
    width: 100%;
 }
 
- table td:nth-child(-n+4) div
+#trspace tr {
+
+}
+
+table td:nth-child(-n+4) div
 {
  min-width: 100px;
+}
+
+#go form{
+  display:inline;
 }
 
 input[type=submit] {
@@ -25,6 +33,31 @@ input[type=submit] {
 }
 </style>
 <body bgcolor="#cccccc" style="font-family: verdana; font-size: 18px">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+// when the document is ready, run this function
+jQuery(function( $ ) {
+    var keymap = {};
+
+    // LEFT
+    keymap[ 37 ] = "#prev";
+    // RIGHT
+    keymap[ 39 ] = "#next";
+
+    $( document ).on( "keyup", function(event) {
+        var href,
+            selector = keymap[ event.which ];
+        // if the key pressed was in our map, check for the href
+        if ( selector ) {
+            href = $( selector ).attr( "href" );
+            if ( href ) {
+                // navigate where the link points
+                window.location = href;
+            }
+        }
+    });
+});
+</script>
 <table>
 <col width="600">
 <col width="800">
@@ -33,13 +66,13 @@ input[type=submit] {
         <form id='go' method='post' action="/view/video/GO">
             <a href="/view/video/FIRST">&lt;&lt;&lt; First</a> |
             {% if previous %}
-            <a href="{{previous}}">&lt; Previous</a>
+            <a id="prev" href="{{previous}}">&lt; Previous</a>
             {% else %}
             &lt; Previous
             {% endif %}
             | <a href="/view/video/RANDOM">Random</a> |
             {% if following %}
-            <a href="{{following}}">Next &gt;</a>
+            <a id="next" href="{{following}}">Next &gt;</a>
               {% else %}
               Next &gt;
             {% endif %}

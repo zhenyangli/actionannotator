@@ -1,5 +1,4 @@
 <!doctype html>
-
 <title>Image viewer</title>
 <style>
 #images ul {
@@ -34,6 +33,31 @@ input[type=submit] {
 }
 </style>
 <body bgcolor="#cccccc" style="font-family: verdana; font-size: 18px">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+// when the document is ready, run this function
+jQuery(function( $ ) {
+    var keymap = {};
+
+    // LEFT
+    keymap[ 37 ] = "#prev";
+    // RIGHT
+    keymap[ 39 ] = "#next";
+
+    $( document ).on( "keyup", function(event) {
+        var href,
+            selector = keymap[ event.which ];
+        // if the key pressed was in our map, check for the href
+        if ( selector ) {
+            href = $( selector ).attr( "href" );
+            if ( href ) {
+                // navigate where the link points
+                window.location = href;
+            }
+        }
+    });
+});
+</script>
 <table>
 <col width="600">
 <col width="800">
@@ -42,13 +66,13 @@ input[type=submit] {
         <form id='go' method='post' action="/video/GO">
             <a href="/video/FIRST">&lt;&lt;&lt; First</a> |
             {% if previous %}
-            <a href="{{previous}}">&lt; Previous</a>
+            <a id="prev" href="{{previous}}" accesskey="1">&lt; Previous</a>
             {% else %}
             &lt; Previous
             {% endif %}
             | <a href="/video/RANDOM">Random</a> |
             {% if following %}
-            <a href="{{following}}">Next &gt;</a>
+            <a id="next" href="{{following}}" accesskey="2">Next &gt;</a>
               {% else %}
               Next &gt;
             {% endif %}
@@ -90,12 +114,14 @@ input[type=submit] {
 <left>
 <form id='answerform' method='post' action="{{url_for('submit_annotation',video_number=video_number)}}" >
 <table>
-<tr><td>Describe by ONE sentence what the object is doing in the video<td></tr>
-<!--<tr><td><input type="text" name="caption" size="100"></td></tr>-->
-<tr><td><textarea name="fs-caption" rows="2" cols="100" style="border:none;"></textarea></td></tr>
+<tr><td><p style="font-size: 15px">Describe by ONE sentence what the object is doing in the video</p><td></tr>
+<tr><td><input type="text" name="caption" size="100"></td></tr>
+<!--<tr><td><textarea name="caption" rows="2" cols="100" style="border:none;"></textarea></td></tr>-->
 
-<tr><td>Describe by selecting WORDS what the object is doing in the video<td></tr>
+<!--<tr><td>Describe by selecting WORDS what the object is doing in the video<td></tr>-->
 <!--<tr><td><input type="text" name="caption" size="100"></td></tr>-->
+
+<!--
 <tr><td>
     <select name="pd-color">
         <option value =""></option>
@@ -139,6 +165,7 @@ input[type=submit] {
         <option value="at the bottom">at the bottom</option>
     </select>
 </td></tr>
+-->
 
 <!--<tr><td>Describe by ONE sentence using the WORDS you select above only<td></tr>-->
 <!--<tr><td><input type="text" name="caption" size="100"></td></tr>-->
