@@ -24,14 +24,18 @@ def comments_parser(comments):
 #setup dataset:
 def make_video_dict():
     d = dict()
-    videos = sorted(glob('static/A2D_annotation/for_annotation_new/*'))
-    random.seed(1234)
-    random.shuffle(videos)
     
-    fp = open('A2D_videos.txt','w')
-    for video in videos:
-        fp.write(video+'\n')
-    fp.close()
+    #videos = sorted(glob('static/A2D_annotation/for_annotation_new/*'))
+    #random.seed(1234)
+    #random.shuffle(videos)
+    
+    #fp = open('A2D_videos.txt','w')
+    #for video in videos:
+    #    fp.write(video+'\n')
+    #fp.close()
+
+    with open('A2D_videos.txt', 'r') as fp:
+        videos = fp.read().splitlines()
 
     for i, video in enumerate(videos):
         video_number = str(i)
