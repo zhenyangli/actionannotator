@@ -7,8 +7,6 @@ import xml.etree.ElementTree as ET
 app = Flask(__name__)
 app.secret_key = 'actionannotator'
 
-random.seed(1000)
-
 from xml.dom import minidom
 
 def prettify(elem):
@@ -27,6 +25,7 @@ def comments_parser(comments):
 def make_video_dict():
     d = dict()
     videos = sorted(glob('static/A2D_annotation/for_annotation_new/*'))
+    random.seed(1000)
     random.shuffle(videos)
     for i, video in enumerate(videos):
         video_number = str(i)
