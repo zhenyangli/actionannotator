@@ -1,2 +1,12 @@
 Please help us to annotate the videos with IDs:
 Tom: 1-200
+Spencer: 201-500
+Mert: 501-800 -> 522, 776
+Shuai: 801-1100
+Pascal: 1101-1400
+
+zhenyang: 5342
+start: 5412
+
+what about multiple actions?
+woman walking with a dog then running
