@@ -24,14 +24,14 @@ for videofile in videofiles:
 descriptions = []
 for v, video in enumerate(videos):
 
-    print('Process this video %s.'%(video,))
+    print('Process this video %s.\n'%(video,))
     query_file = 'static/A2DEntities/' + video + '.xml'
     root = ET.parse(query_file).getroot()
     # querier = prettify( querier )
 
     qid = 1
     description = root[qid][1].text
-    descriptions.append(description)
+    descriptions.append(str(description))
 
 with open('All_Annotations.txt', 'w') as fp:
     for description in descriptions:
