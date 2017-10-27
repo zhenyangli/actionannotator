@@ -28,7 +28,7 @@ for v, video in enumerate(videos):
     root = ET.parse(query_file).getroot()
     # querier = prettify( querier )
 
-    qid = 1
+    qid = 0
     description = root[qid][1].text
     descriptions.append(description)
 
@@ -36,4 +36,3 @@ with open('All_Annotations.txt', 'w') as fp:
     for description in descriptions:
         fp.write(description+'\n')
 
-        
