@@ -24,6 +24,7 @@ for videofile in videofiles:
 descriptions = []
 for v, video in enumerate(videos):
 
+    print('Process this video %s.'%(video,))
     query_file = 'static/A2DEntities/' + video + '.xml'
     root = ET.parse(query_file).getroot()
     # querier = prettify( querier )
