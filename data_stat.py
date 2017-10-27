@@ -28,7 +28,7 @@ for v, video in enumerate(videos):
     root = ET.parse(query_file).getroot()
     # querier = prettify( querier )
 
-    qid = 0
+    qid = 1
     description = root[qid][1].text
     descriptions.append(description)
 
