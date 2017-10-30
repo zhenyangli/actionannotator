@@ -1,3 +1,5 @@
 static/A2D_annotation
+static/JHMDB
 static/A2DEntities/*.xml
 static/A2DEntities_
+static/JHMDBEntities/*.xml
